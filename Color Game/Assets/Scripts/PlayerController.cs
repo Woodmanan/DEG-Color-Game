@@ -8,6 +8,15 @@ using UnityEngine;
  * the character move right!
  */
 
+//Quick Enum for testing the different gameplay modes
+public enum AttackType
+{
+    MeleeNoCombo,
+    MeleeCombo,
+    RangedNoGrav,
+    RangedGrav
+}
+
 //This tag forces a rigidbody to be on this object as well
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
@@ -16,10 +25,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speed = 1; //Speed controls the speed of the object
     [SerializeField] float jumpForce; //Force of the jump impulse
     [SerializeField] float groundDistForJump = 1f; //Distance for boxcast - how close you need to be to the ground to jump
+    [SerializeField] AttackType attackType;
+
+    public Color color;
 
     Coroutine openWindowRoutine;
 
     float jumpCooldown = 0f;
+
+    public static PlayerController singleton;
 
     Rigidbody2D rigid;
     // Start is called before the first frame update
@@ -27,6 +41,12 @@ public class PlayerController : MonoBehaviour
     {
         //Get the component from the main object (no null check, since it's forced to be there)
         rigid = GetComponent<Rigidbody2D>();
+
+        if (singleton != this && singleton != null)
+        {
+            Destroy(singleton.gameObject);
+        }
+        singleton = this;
     }
 
     // Update is called once per frame
@@ -64,6 +84,11 @@ public class PlayerController : MonoBehaviour
                 openWindowRoutine = StartCoroutine(OpenWindow());
             }
         }
+        else
+        {
+            //Fixes a weird timescale bug - we'll have to change this if we want more things freezing time
+            Time.timeScale = 1;
+        }
     }
 
     bool IsGrounded()
@@ -86,10 +111,13 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator OpenWindow()
     {
-        for (float t = 0; t < .05f; t+= Time.deltaTime)
+        for (float t = 0; t < .1f; t+= Time.deltaTime)
         {
             if (!Input.GetMouseButton(0))
             {
+                //It was a click, not a hold - fire an attack!
+                Attack();
+
                 openWindowRoutine = null;
                 yield break;
             }
@@ -100,5 +128,24 @@ public class PlayerController : MonoBehaviour
         yield return new WaitUntil(() => (!Input.GetMouseButton(0)));
         ColorSelectionUI.singleton.CloseSelector();
         openWindowRoutine = null;
+    }
+
+    public void Attack()
+    {
+        switch (attackType)
+        {
+            case AttackType.MeleeNoCombo:
+                Debug.LogError("Not implemented!");
+                break;
+            case AttackType.MeleeCombo:
+                Debug.LogError("Not implemented!");
+                break;
+            case AttackType.RangedNoGrav:
+                Debug.LogError("Not implemented!");
+                break;
+            case AttackType.RangedGrav:
+                Debug.LogError("Not implemented!");
+                break;
+        }
     }
 }
