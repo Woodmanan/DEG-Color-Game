@@ -26,6 +26,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpForce; //Force of the jump impulse
     [SerializeField] float groundDistForJump = 1f; //Distance for boxcast - how close you need to be to the ground to jump
     [SerializeField] AttackType attackType;
+    [SerializeField] float rangedAttackSpawnDist;
+    [SerializeField] float rangedAttackSpeed;
+    [SerializeField] GameObject projectile;
 
     public Color color;
 
@@ -107,11 +110,14 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawRay(transform.position, transform.position + Vector3.down * groundDistForJump);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, transform.position + Vector3.right * rangedAttackSpawnDist);
     }
 
     IEnumerator OpenWindow()
     {
-        for (float t = 0; t < .1f; t+= Time.deltaTime)
+        for (float t = 0; t < .15f; t+= Time.deltaTime)
         {
             if (!Input.GetMouseButton(0))
             {
@@ -141,11 +147,28 @@ public class PlayerController : MonoBehaviour
                 Debug.LogError("Not implemented!");
                 break;
             case AttackType.RangedNoGrav:
-                Debug.LogError("Not implemented!");
+                FireProjectile(false);
                 break;
             case AttackType.RangedGrav:
-                Debug.LogError("Not implemented!");
+                FireProjectile(true);
                 break;
         }
+    }
+
+    public void FireProjectile(bool useGravity)
+    {
+        Vector3 dir = GetMouseDir();
+        Rigidbody2D rigid = Instantiate(projectile, transform.position + dir * rangedAttackSpawnDist, new Quaternion()).GetComponent<Rigidbody2D>();
+        rigid.velocity = ((Vector2)dir) * rangedAttackSpeed;
+        rigid.gravityScale = useGravity ? rigid.gravityScale : 0;
+        rigid.GetComponent<SpriteRenderer>().color = color;
+    }
+
+    public Vector3 GetMouseDir()
+    {
+        Vector2 mouse = Input.mousePosition;
+        Vector2 screen = Camera.main.WorldToScreenPoint(transform.position); //Bad code, but we don't need to be optimized
+        float rot = Mathf.Atan2(mouse.y - screen.y, mouse.x - screen.x);//- 90 * Mathf.Deg2Rad;
+        return new Vector3(Mathf.Cos(rot), Mathf.Sin(rot), 0);
     }
 }

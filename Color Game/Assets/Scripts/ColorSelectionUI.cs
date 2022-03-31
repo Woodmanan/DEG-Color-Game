@@ -43,6 +43,12 @@ public class ColorSelectionUI : MonoBehaviour
         PlayerController.singleton.color = color;
     }
 
+    public void CloseSelectorNoLock()
+    {
+        anim.SetTrigger("Close");
+        Time.timeScale = 1;
+    }
+
     public void FreezeTime()
     {
         Time.timeScale = 0;
