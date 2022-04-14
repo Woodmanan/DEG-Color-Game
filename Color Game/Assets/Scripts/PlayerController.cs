@@ -29,6 +29,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float rangedAttackSpawnDist;
     [SerializeField] float rangedAttackSpeed;
     [SerializeField] GameObject projectile;
+    [SerializeField] float meleeAttackDamage;
+
+    [Header("Melee Colliders")]
+    [SerializeField] AttackZone leftAttack;
+    [SerializeField] AttackZone rightAttack;
 
     public Color color;
 
@@ -55,7 +60,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(openWindowRoutine == null);
+        //Debug.Log(openWindowRoutine == null);
         //Create new vector from X input
         Vector2 moveVelocity = new Vector2(Input.GetAxis("Horizontal"), 0);
         moveVelocity *= speed;
@@ -141,10 +146,10 @@ public class PlayerController : MonoBehaviour
         switch (attackType)
         {
             case AttackType.MeleeNoCombo:
-                Debug.LogError("Not implemented!");
+                MeleeAttack(false);
                 break;
             case AttackType.MeleeCombo:
-                Debug.LogError("Not implemented!");
+                MeleeAttack(true);
                 break;
             case AttackType.RangedNoGrav:
                 FireProjectile(false);
@@ -152,6 +157,19 @@ public class PlayerController : MonoBehaviour
             case AttackType.RangedGrav:
                 FireProjectile(true);
                 break;
+        }
+    }
+
+    public void MeleeAttack(bool useCombo)
+    {
+        Vector3 mouseDir = GetMouseDir();
+        if (mouseDir.x < 0)
+        {
+            leftAttack.Attack(useCombo, meleeAttackDamage, color);
+        }
+        else
+        {
+            rightAttack.Attack(useCombo, meleeAttackDamage, color);
         }
     }
 
