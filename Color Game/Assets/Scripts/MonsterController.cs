@@ -9,6 +9,8 @@ public class MonsterController : MonoBehaviour
     public float speed = 3; //Speed controls the speed of the object
     public bool going_right = true;
 
+    public float platform_distance;
+
     // public Color color;
 
     Rigidbody2D rigid;
@@ -22,6 +24,19 @@ public class MonsterController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        rigid.velocity = new Vector3(speed, 0, 0);
+        RaycastHit2D hit = Physics2D.Raycast(rigid.position + Vector2.right * 3, Vector3.down, platform_distance);
+        Debug.Log(hit.collider != null);
+        if (hit.collider != null) {
+            rigid.velocity = new Vector3(speed, 0, 0);
+        }
+        else {
+            rigid.velocity = Vector2.zero;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(transform.position, Vector3.down * platform_distance);
     }
 }
