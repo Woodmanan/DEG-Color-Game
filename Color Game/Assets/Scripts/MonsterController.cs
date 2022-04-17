@@ -64,6 +64,7 @@ public class MonsterController : MonoBehaviour
     {
         RaycastHit2D hit_down = Physics2D.Raycast(rigid.position + Vector2.right, Vector3.down, platform_distance);
 
+        // stop if about to fall off platform
         if (hit_down.collider == null)
         {
             rigid.velocity = Vector2.zero;
