@@ -101,6 +101,7 @@ public class PlayerController : MonoBehaviour
 
     bool IsGrounded()
     {
+
         //Generate boxcast (like raycast, but catches corners - gives you leeway when you jump off the edge of a platform)
         RaycastHit2D hit = Physics2D.BoxCast(transform.position, Vector2.one, 0, Vector2.down, groundDistForJump);
         if (hit.collider)
@@ -114,10 +115,10 @@ public class PlayerController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawRay(transform.position, transform.position + Vector3.down * groundDistForJump);
+        Gizmos.DrawRay(transform.position, Vector3.down * groundDistForJump);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, transform.position + Vector3.right * rangedAttackSpawnDist);
+        Gizmos.DrawRay(transform.position, Vector3.right * rangedAttackSpawnDist);
     }
 
     IEnumerator OpenWindow()
