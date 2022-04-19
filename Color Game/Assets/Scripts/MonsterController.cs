@@ -48,21 +48,19 @@ public class MonsterController : MonoBehaviour
 
     private void patrolling()
     {
-        RaycastHit2D hit_down = Physics2D.Raycast(rigid.position + Vector2.right, Vector3.down, platform_distance);
-        RaycastHit2D hit_left = Physics2D.Raycast(rigid.position, Vector3.left, wall_distance);
-        RaycastHit2D hit_right = Physics2D.Raycast(rigid.position, Vector3.right, wall_distance);
+        RaycastHit2D hit_down = Physics2D.Raycast(rigid.position + Vector2.right * Mathf.Sign(rigid.velocity.x), Vector3.down, platform_distance);
+        RaycastHit2D hit_left = Physics2D.Raycast(rigid.position, Vector2.left, wall_distance);
+        RaycastHit2D hit_right = Physics2D.Raycast(rigid.position, Vector2.right, wall_distance);
 
         // switch directions if detect edge or wall
         if (hit_down.collider == null || hit_left.collider != null || hit_right.collider != null) {
-            speed *= -1;
+            rigid.velocity = new Vector3(-Mathf.Sign(rigid.velocity.x) * speed, 0);
         }
-
-        rigid.velocity = new Vector3(speed, 0, 0);
     }
 
     private void follow_player()
     {
-        RaycastHit2D hit_down = Physics2D.Raycast(rigid.position + Vector2.right, Vector3.down, platform_distance);
+        RaycastHit2D hit_down = Physics2D.Raycast(rigid.position + Vector2.right * Mathf.Sign(rigid.velocity.x), Vector3.down, platform_distance);
 
         // stop if about to fall off platform
         if (hit_down.collider == null)
@@ -72,8 +70,13 @@ public class MonsterController : MonoBehaviour
         else
         {
             Vector3 direction = player.position - transform.position;
-            direction.Normalize();
-            rigid.MovePosition(transform.position + (direction * speed * Time.deltaTime));
+            //This returns a vector - doesn't modify the current instance
+            //direction.Normalize(); 
+
+            //Old code moved position manually, which made it right the rigidbody and incorrectly check hit_down.
+            //rigid.MovePosition(transform.position + (direction.normalized * speed * Time.deltaTime));
+
+            rigid.velocity = rigid.velocity * Vector2.up + speed * Mathf.Sign(direction.x) * Vector2.right;
         }
     }
 
