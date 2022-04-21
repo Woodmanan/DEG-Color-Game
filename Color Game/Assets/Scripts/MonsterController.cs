@@ -26,6 +26,7 @@ public class MonsterController : MonoBehaviour
     {
         //Get the component from the main object (no null check, since it's forced to be there)
         rigid = GetComponent<Rigidbody2D>();
+        //rigid.velocity = Vector2.right * speed;
     }
 
     // Update is called once per frame
