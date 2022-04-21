@@ -566,7 +566,19 @@ PrefabInstance:
     - target: {fileID: 6373518729319146625, guid: f1bb2f15593742449957784e1b13e328, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 2313834804557800655, guid: 5a1131861322b914aaafef53944be775, type: 3}
+      objectReference: {fileID: 123756364766914108, guid: 5a1131861322b914aaafef53944be775, type: 3}
+    - target: {fileID: 6373518729319146625, guid: f1bb2f15593742449957784e1b13e328, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373518729319146625, guid: f1bb2f15593742449957784e1b13e328, type: 3}
+      propertyPath: m_Color.g
+      value: 0.72436714
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373518729319146625, guid: f1bb2f15593742449957784e1b13e328, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6373518729319146627, guid: f1bb2f15593742449957784e1b13e328, type: 3}
       propertyPath: player
       value: 
@@ -578,6 +590,10 @@ PrefabInstance:
     - target: {fileID: 6373518729319146627, guid: f1bb2f15593742449957784e1b13e328, type: 3}
       propertyPath: platform_distance
       value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373518729319146627, guid: f1bb2f15593742449957784e1b13e328, type: 3}
+      propertyPath: rangedAttackSpeed
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6373518729319146637, guid: f1bb2f15593742449957784e1b13e328, type: 3}
       propertyPath: m_Name

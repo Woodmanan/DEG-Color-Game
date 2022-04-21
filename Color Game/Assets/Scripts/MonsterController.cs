@@ -102,7 +102,7 @@ public class MonsterController : MonoBehaviour
         Vector3 dir = player.position - transform.position;
         // dir = dir.Normalize();
         Rigidbody2D rigid = Instantiate(projectile, transform.position + dir.normalized * rangedAttackSpawnDist, new Quaternion()).GetComponent<Rigidbody2D>();
-        rigid.velocity = ((Vector2)dir) * rangedAttackSpeed;
+        rigid.velocity = ((Vector2)dir).normalized * rangedAttackSpeed;
         rigid.gravityScale = useGravity ? rigid.gravityScale : 0;
         rigid.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
     }
