@@ -8,14 +8,17 @@ public class MonsterController : MonoBehaviour
 {
     public float speed = 3; //Speed controls the speed of the object
     public bool going_right = true;
-
     public float platform_distance;
     public float wall_distance;
     private float detect_range = 6f;
-
+    public float rangedAttackSpawnDist;
+    public float rangedAttackSpeed;
+    public GameObject projectile;
     public Transform player;
+    public float fireRate = 0.5f;
+    public float nextFire = 0f;
 
-    // public Color color;
+    public Color color;
 
     Rigidbody2D rigid;
     // Start is called before the first frame update
@@ -28,16 +31,17 @@ public class MonsterController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        move();
-    }
-
-    // Follows player within a range, else patrols the area
-    private void move() {
         float distance = Vector3.Distance(transform.position, player.position);
 
         if (distance < detect_range){
             Debug.Log("FOLLOW");
             follow_player();
+            
+            if(Time.time > nextFire) {
+                nextFire = Time.time + fireRate;
+                Attack();
+                Debug.Log("SHOOT!");
+            }
         }
         else
         {
@@ -85,5 +89,20 @@ public class MonsterController : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawRay(transform.position, Vector3.down * platform_distance);
         Gizmos.DrawRay(transform.position, Vector3.left * wall_distance);
+    }
+
+    public void Attack()
+    {
+        FireProjectile(true);
+    }
+
+    public void FireProjectile(bool useGravity)
+    {
+        Vector3 dir = player.position - transform.position;
+        // dir = dir.Normalize();
+        Rigidbody2D rigid = Instantiate(projectile, transform.position + dir * rangedAttackSpawnDist, new Quaternion()).GetComponent<Rigidbody2D>();
+        rigid.velocity = ((Vector2)dir) * rangedAttackSpeed;
+        rigid.gravityScale = useGravity ? rigid.gravityScale : 0;
+        rigid.GetComponent<SpriteRenderer>().color = color;
     }
 }
