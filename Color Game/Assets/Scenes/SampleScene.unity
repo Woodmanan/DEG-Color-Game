@@ -804,7 +804,13 @@ MonoBehaviour:
   going_right: 1
   platform_distance: 2
   wall_distance: 0.66
+  rangedAttackSpawnDist: 1.34
+  rangedAttackSpeed: 5
+  projectile: {fileID: 5552143464501821836, guid: d8136826b1f550448939ac89265f5f22, type: 3}
   player: {fileID: 827961170}
+  fireRate: 0.5
+  nextFire: 0
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

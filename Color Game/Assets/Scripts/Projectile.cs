@@ -31,6 +31,7 @@ public class Projectile : MonoBehaviour
         Monster monster;
         if ((monster = collision.gameObject.GetComponent<Monster>()))
         {
+            Debug.Log($"Monster is {monster}");
             monster.Damage(damagePerHit, sprite.color);
         }
         Destroy(this.gameObject);
