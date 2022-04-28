@@ -53,7 +53,7 @@ public class MonsterController : MonoBehaviour
 
     private void patrolling()
     {
-        RaycastHit2D hit_down = Physics2D.Raycast(rigid.position + Vector2.right * Mathf.Sign(rigid.velocity.x), Vector3.down, platform_distance);
+        RaycastHit2D hit_down = Physics2D.Raycast(rigid.position + Vector2.right * Mathf.Sign(rigid.velocity.x) * wall_distance, Vector3.down, platform_distance);
         RaycastHit2D hit_left = Physics2D.Raycast(rigid.position, Vector2.left, wall_distance);
         RaycastHit2D hit_right = Physics2D.Raycast(rigid.position, Vector2.right, wall_distance);
 
@@ -65,7 +65,7 @@ public class MonsterController : MonoBehaviour
 
     private void follow_player()
     {
-        RaycastHit2D hit_down = Physics2D.Raycast(rigid.position + Vector2.right * Mathf.Sign(rigid.velocity.x), Vector3.down, platform_distance);
+        RaycastHit2D hit_down = Physics2D.Raycast(rigid.position + Vector2.right * Mathf.Sign(rigid.velocity.x) * wall_distance, Vector3.down, platform_distance);
 
         // stop if about to fall off platform
         if (hit_down.collider == null)
