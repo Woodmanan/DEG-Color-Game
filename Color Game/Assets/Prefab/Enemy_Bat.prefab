@@ -162,7 +162,7 @@ MonoBehaviour:
   rangedAttackSpawnDist: 1.34
   rangedAttackSpeed: 10
   projectile: {fileID: 5552143464501821836, guid: d8136826b1f550448939ac89265f5f22, type: 3}
-  player: {fileID: 0}
+  player: {fileID: 3177241522012082266, guid: 16229a03c0947464e88cbf46a653c90d, type: 3}
   fireRate: 0.5
   nextFire: 0
   color: {r: 0, g: 0, b: 0, a: 0}
