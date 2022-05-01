@@ -12,6 +12,8 @@ public class Monster : MonoBehaviour
     SpriteRenderer sprite;
     Animator anim;
 
+    public ComparisonMode comparison_mode;
+
     [SerializeField] UnityEvent OnDeath;
 
 
@@ -26,12 +28,12 @@ public class Monster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void Damage(float amount, Color color)
     {
-        float similarity = ColorComparison.singleton.CompareColors(sprite.color, color);
+        float similarity = ColorComparison.singleton.CompareColors(comparison_mode, sprite.color, color);
         health -= amount * similarity;
         if (anim && similarity > 0)
         {

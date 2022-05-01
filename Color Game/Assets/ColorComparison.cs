@@ -11,7 +11,7 @@ public enum ComparisonMode
 
 public class ColorComparison : MonoBehaviour
 {
-    public ComparisonMode mode;
+    // public ComparisonMode mode;
     public static ColorComparison singleton;
     public float cutoff = .5f;
 
@@ -28,10 +28,10 @@ public class ColorComparison : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public float CompareColors(Color one, Color two)
+    public float CompareColors(ComparisonMode mode, Color one, Color two)
     {
         Color full = new Color(1.0f, 1.0f, 1.0f);
 
@@ -69,7 +69,7 @@ public class ColorComparison : MonoBehaviour
         }
 
         Debug.Log("Angle diff is " + angleDiff);
-        
+
         //See how close we are to it!
         float totalDiff = Mathf.Abs(angleDiff - goal);
 
@@ -86,7 +86,7 @@ public class ColorComparison : MonoBehaviour
         Color.RGBToHSV(one, out H1, out S, out V);
         Color.RGBToHSV(two, out H2, out S, out V);
         return Mathf.Abs(H1 - H2);
-    }    
+    }
 
     public float Similarity(Color one, Color two)
     {
