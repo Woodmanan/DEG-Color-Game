@@ -31,8 +31,9 @@ public class Monster : MonoBehaviour
 
     public void Damage(float amount, Color color)
     {
-        health -= amount * ColorComparison.singleton.CompareColors(sprite.color, color);
-        if (anim)
+        float similarity = ColorComparison.singleton.CompareColors(sprite.color, color);
+        health -= amount * similarity;
+        if (anim && similarity > 0)
         {
             anim.SetTrigger("Damage");
         }
