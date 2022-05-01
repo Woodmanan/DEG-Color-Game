@@ -31,6 +31,12 @@ public class Monster : MonoBehaviour
 
     }
 
+    IEnumerator DestroyMe()
+    {
+        yield return new WaitForEndOfFrame();
+        Destroy(this.gameObject);
+    }
+
     public void Damage(float amount, Color color)
     {
         float similarity = ColorComparison.singleton.CompareColors(comparison_mode, sprite.color, color);
@@ -45,7 +51,7 @@ public class Monster : MonoBehaviour
             OnDeath.Invoke();
 
             //Remove this object
-            Destroy(this.gameObject);
+            StartCoroutine(DestroyMe());
 
             //If it's the player, then we also need to end the game or restart the level!
             if (gameObject.tag.Equals("Player"))
