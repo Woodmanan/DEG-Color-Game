@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
         rigid.velocity = moveVelocity;
 
         //Jump code goes here!
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCooldown <= 0)
+        if (Input.GetKeyDown(KeyCode.W) && jumpCooldown <= 0)
         {
             if (IsGrounded())
             {
@@ -85,7 +85,12 @@ public class PlayerController : MonoBehaviour
             rigid.AddForce(Vector2.down * rigid.gravityScale, ForceMode2D.Force);
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
+        {
+            Attack();
+        }
+
+        if (Input.GetKey(KeyCode.Space))
         {
             if (openWindowRoutine == null)
             {
@@ -123,21 +128,8 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator OpenWindow()
     {
-        for (float t = 0; t < .15f; t+= Time.deltaTime)
-        {
-            if (!Input.GetMouseButton(0))
-            {
-                //It was a click, not a hold - fire an attack!
-                Attack();
-
-                openWindowRoutine = null;
-                yield break;
-            }
-            yield return null;
-        }
-
         ColorSelectionUI.singleton.OpenSelector();
-        yield return new WaitUntil(() => (!Input.GetMouseButton(0)));
+        yield return new WaitUntil(() => !Input.GetKey(KeyCode.Space));
         ColorSelectionUI.singleton.CloseSelector();
         openWindowRoutine = null;
     }

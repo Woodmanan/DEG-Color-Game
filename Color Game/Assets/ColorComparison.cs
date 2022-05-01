@@ -13,6 +13,8 @@ public class ColorComparison : MonoBehaviour
 {
     public ComparisonMode mode;
     public static ColorComparison singleton;
+    public float cutoff = .5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,18 +34,28 @@ public class ColorComparison : MonoBehaviour
     public float CompareColors(Color one, Color two)
     {
         Color full = new Color(1.0f, 1.0f, 1.0f);
+
+        float similarity = 1.0f;
+
         switch (mode)
         {
             case ComparisonMode.Analagous:
-                return Similarity(one, two);
+                similarity = Similarity(one, two);
+                break;
             case ComparisonMode.Complimentary:
-                return Similarity(full - one, two);
+                similarity = Similarity(full - one, two);
+                break;
             case ComparisonMode.Triadic:
-                return GetHSVOffset(one, two, 0.333f, 0.0416f);
+                similarity = GetHSVOffset(one, two, 0.333f, 0.0416f);
+                break;
             default:
                 Debug.Log($"No code available for mode {mode}!");
-                return 1.0f;
+                similarity = 1.0f;
+                break;
         }
+
+        //Cuts off similarity below a score, and rescales damage to match.
+        return (similarity > cutoff) ? ((similarity - cutoff) / (1 - cutoff)) : 0;
     }
 
     public float GetHSVOffset(Color one, Color two, float goal, float wiggle)
