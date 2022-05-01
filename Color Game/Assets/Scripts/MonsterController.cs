@@ -27,7 +27,10 @@ public class MonsterController : MonoBehaviour
         //Get the component from the main object (no null check, since it's forced to be there)
         rigid = GetComponent<Rigidbody2D>();
         //rigid.velocity = Vector2.right * speed;
-        //player = PlayerController.singleton.transform;
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+        }
     }
 
     // Update is called once per frame
