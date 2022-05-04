@@ -37,9 +37,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AttackZone leftAttack;
     [SerializeField] AttackZone rightAttack;
 
+    [Header("Fall Damage Controls")]
+    [SerializeField] float fallSpeedForDamage;
+    [SerializeField] float fallDamage;
+    private float fallSpeed;
+
 
     public Animator animator;
     public Color color;
+    public SpriteRenderer render;
 
     Coroutine openWindowRoutine;
 
@@ -128,6 +134,12 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private void FixedUpdate()
+    {
+        //Catch speed before collisions - actual rigidbody speed is set to 0 when collision happens
+        fallSpeed = rigid.velocity.y * -1;
+    }
+
     bool IsGrounded()
     {
 
@@ -205,5 +217,14 @@ public class PlayerController : MonoBehaviour
         Vector2 screen = Camera.main.WorldToScreenPoint(transform.position); //Bad code, but we don't need to be optimized
         float rot = Mathf.Atan2(mouse.y - screen.y, mouse.x - screen.x);//- 90 * Mathf.Deg2Rad;
         return new Vector3(Mathf.Cos(rot), Mathf.Sin(rot), 0);
+    }
+
+    //Used to check for ground collisions, and apply fall damage when necessary.
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (fallSpeed > fallSpeedForDamage)
+        {
+            GetComponent<Monster>().Damage(fallDamage, Color.white);
+        }
     }
 }

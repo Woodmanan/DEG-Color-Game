@@ -45,7 +45,6 @@ public class SubZone : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Zone touched a new thing!");
         touching.Add(collision.gameObject);
     }
 

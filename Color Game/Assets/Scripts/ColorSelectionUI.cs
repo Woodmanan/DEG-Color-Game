@@ -41,7 +41,7 @@ public class ColorSelectionUI : MonoBehaviour
         anim.SetTrigger("Close");
         Time.timeScale = 1;
         PlayerController.singleton.color = color;
-        PlayerController.singleton.GetComponent<SpriteRenderer>().color = color;
+        PlayerController.singleton.render.color = color;
     }
 
     public void CloseSelectorNoLock()

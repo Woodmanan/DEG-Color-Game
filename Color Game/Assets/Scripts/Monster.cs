@@ -46,7 +46,9 @@ public class Monster : MonoBehaviour
             health -= amount;
             if (anim)
             {
+                Debug.Log("Calling this!");
                 anim.SetTrigger("Damage");
+                Debug.Log("Right after");
             }
         }
         else

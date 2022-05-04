@@ -440,15 +440,18 @@ MonoBehaviour:
   groundDistForJump: 1.18
   attackType: 2
   rangedAttackSpawnDist: 1.34
-  rangedAttackSpeed: 8
+  rangedAttackSpeed: 16
   projectile: {fileID: 5552143464501821836, guid: d8136826b1f550448939ac89265f5f22, type: 3}
   meleeAttackDamage: 10
   going_right: 1
   moving: 1
   leftAttack: {fileID: 3177241522877428537}
   rightAttack: {fileID: 3177241521545559693}
+  fallSpeedForDamage: 35
+  fallDamage: 10
   animator: {fileID: 8131054003850680619}
   color: {r: 1, g: 0, b: 0, a: 1}
+  render: {fileID: 6401377370191510908}
 --- !u!114 &3177241522012082269
 MonoBehaviour:
   m_ObjectHideFlags: 0

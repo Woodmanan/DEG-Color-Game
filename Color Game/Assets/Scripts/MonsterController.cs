@@ -40,18 +40,15 @@ public class MonsterController : MonoBehaviour
         float distance = Vector3.Distance(transform.position, player.position);
 
         if (distance < detect_range){
-            Debug.Log("FOLLOW");
             follow_player();
             
             if(Time.time > nextFire) {
                 nextFire = Time.time + fireRate;
                 Attack();
-                Debug.Log("SHOOT!");
             }
         }
         else
         {
-            Debug.Log("PATROL");
             patrolling();
         }
 
@@ -65,7 +62,7 @@ public class MonsterController : MonoBehaviour
             going_right = false;
         }
 
-        animator.SetBool("Moving_Right", going_right);
+        animator?.SetBool("Moving_Right", going_right);
 
     }
 
@@ -114,7 +111,7 @@ public class MonsterController : MonoBehaviour
 
     public void Attack()
     {
-        FireProjectile(true);
+        FireProjectile(false);
     }
 
     public void FireProjectile(bool useGravity)
