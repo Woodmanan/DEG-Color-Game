@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca2fdc2f6f98d4a4788da319a75598fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 30
   health: 10
   comparison_mode: 1
   OnDeath:
@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c543e7dad8fd24945a8bbd48592eee72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   speed: 3
   going_right: 1
   platform_distance: 1.35

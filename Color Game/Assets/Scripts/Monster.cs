@@ -12,6 +12,8 @@ public class Monster : MonoBehaviour
     SpriteRenderer sprite;
     Animator anim;
 
+    public bool ignoresColor;
+
     public ComparisonMode comparison_mode;
 
     [SerializeField] UnityEvent OnDeath;
@@ -39,12 +41,25 @@ public class Monster : MonoBehaviour
 
     public void Damage(float amount, Color color)
     {
-        float similarity = ColorComparison.singleton.CompareColors(comparison_mode, sprite.color, color);
-        health -= amount * similarity;
-        if (anim && similarity > 0)
+        if (ignoresColor)
         {
-            anim.SetTrigger("Damage");
+            health -= amount;
+            if (anim)
+            {
+                anim.SetTrigger("Damage");
+            }
         }
+        else
+        {
+            float similarity = ColorComparison.singleton.CompareColors(comparison_mode, sprite.color, color);
+            health -= amount * similarity;
+
+            if (anim && similarity > 0)
+            {
+                anim.SetTrigger("Damage");
+            }
+        }
+
         if (health <= 0)
         {
             //Any event-driven effects we want
