@@ -39,7 +39,7 @@ public class MoveToLevel : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag.Equals("Player"))
+        if (allowedToMove && collision.gameObject.tag.Equals("Player"))
         {
             SceneManager.LoadScene(LevelToMoveTo);
         }
