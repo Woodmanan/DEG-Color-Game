@@ -572,6 +572,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Instructions Box
       objectReference: {fileID: 0}
+    - target: {fileID: 8269458355232934717, guid: cc73aed80c4f8e74ca741e8cc37a2212, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8269458355232934719, guid: cc73aed80c4f8e74ca741e8cc37a2212, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
