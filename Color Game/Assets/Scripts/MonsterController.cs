@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class MonsterController : MonoBehaviour
 {
+    public Animator animator;
     public float speed = 3; //Speed controls the speed of the object
     public bool going_right = true;
     public float platform_distance;
@@ -53,6 +54,19 @@ public class MonsterController : MonoBehaviour
             Debug.Log("PATROL");
             patrolling();
         }
+
+
+        if (rigid.velocity.x >= 0)
+        {
+            going_right = true;
+        }
+        else
+        {
+            going_right = false;
+        }
+
+        animator.SetBool("Moving_Right", going_right);
+
     }
 
     private void patrolling()
@@ -87,6 +101,8 @@ public class MonsterController : MonoBehaviour
 
             rigid.velocity = rigid.velocity * Vector2.up + speed * Mathf.Sign(direction.x) * Vector2.right;
         }
+
+        
     }
 
     private void OnDrawGizmos()

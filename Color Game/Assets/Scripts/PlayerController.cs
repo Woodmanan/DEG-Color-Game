@@ -30,11 +30,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float rangedAttackSpeed;
     [SerializeField] GameObject projectile;
     [SerializeField] float meleeAttackDamage;
+    public bool going_right = true;
+    public bool moving = true;
 
     [Header("Melee Colliders")]
     [SerializeField] AttackZone leftAttack;
     [SerializeField] AttackZone rightAttack;
 
+
+    public Animator animator;
     public Color color;
 
     Coroutine openWindowRoutine;
@@ -102,6 +106,26 @@ public class PlayerController : MonoBehaviour
             //Fixes a weird timescale bug - we'll have to change this if we want more things freezing time
             Time.timeScale = 1;
         }
+
+        if(rigid.velocity.x>0){
+            moving = true;
+            going_right = true;
+        }else if(rigid.velocity.x<0){
+            moving = true;
+            going_right = false;
+        }
+        else{
+            if(rigid.velocity.y>0){
+                moving = true;
+            }else{
+                moving = false;
+            }
+        }
+
+        animator.SetBool("Moving_Right", going_right);
+        animator.SetBool("Moving", moving);
+
+
     }
 
     bool IsGrounded()
