@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /*
  * Basic player controller - the main idea here is to use the RigidBody2D
@@ -131,6 +132,15 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Moving_Right", going_right);
         animator.SetBool("Moving", moving);
 
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % 4);
+        }
 
     }
 
