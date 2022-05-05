@@ -6,11 +6,11 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public float damagePerHit;
-    SpriteRenderer sprite;
+    public SpriteRenderer sprite;
     // Start is called before the first frame update
     void Start()
     {
-        sprite = GetComponent<SpriteRenderer>();
+        //sprite = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -32,7 +32,7 @@ public class Projectile : MonoBehaviour
         if ((monster = collision.gameObject.GetComponent<Monster>()))
         {
             Debug.Log($"Monster is {monster}");
-            monster.Damage(damagePerHit, sprite.color);
+            monster?.Damage(damagePerHit, sprite.color);
         }
         Destroy(this.gameObject);
     }

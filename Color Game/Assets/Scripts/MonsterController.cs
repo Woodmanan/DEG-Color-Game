@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class MonsterController : MonoBehaviour
 {
-    public Animator animator;
+    Animator animator;
     public float speed = 3; //Speed controls the speed of the object
     public bool going_right = true;
     public float platform_distance;
@@ -32,6 +32,7 @@ public class MonsterController : MonoBehaviour
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
         }
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame

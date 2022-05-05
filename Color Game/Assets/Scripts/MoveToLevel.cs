@@ -33,6 +33,7 @@ public class MoveToLevel : MonoBehaviour
             {
                 allowedToMove = true;
                 GetComponent<ParticleSystem>().Play();
+                transform.GetChild(0).gameObject.SetActive(true);
             }
         }
     }
